@@ -12,16 +12,16 @@ body {
 }
 
 .container-fluid {
-  margin-left: 15%;
-  width: 85%;
+  margin-left: 15% !important;
+  width: 85% !important;
   background: #f1f3f6;
   padding: 1px 0 0 0;
   flex: 1 0 auto;
 }
 
 .container {
-  margin: 0;
-  max-width: 98%;
+  margin: 0 !important;
+  max-width: 98% !important;
   margin: 1%;
   background-color: #ffffff;
   border-radius: 5px;
