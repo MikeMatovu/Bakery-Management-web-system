@@ -1,0 +1,144 @@
+<div class="row col col-md-12">
+  <div class="col col-md-4 form-group">
+    <label class="fw-bold" for="product_name">Product Name :</label>
+    <input
+      type="text"
+      class="form-control"
+      id="product_name"
+      placeholder="Product Name"
+      onblur="notNull(this.value, 'product_name_error');"
+    />
+    <code
+      class="text-danger small font-weight-bold float-right"
+      id="product_name_error"
+      style="display: none"
+    ></code>
+  </div>
+  <div class="col col-md-4 form-group">
+    <label class="fw-bold" for="price">Price :</label>
+    <input
+      type="text"
+      class="form-control"
+      id="price"
+      placeholder="Price"
+      required
+    />
+    <code
+      class="text-danger small font-weight-bold float-right"
+      id="quantity_error"
+      style="display: none"
+    ></code>
+  </div>
+  <div class="col col-md-4 form-group">
+    <label class="fw-bold" for="packing">Quantity :</label>
+    <input
+      type="text"
+      class="form-control"
+      id="quantity"
+      placeholder="Quantity"
+      onblur="notNull(this.value, 'quantity_error');"
+    />
+    <code
+      class="text-danger small font-weight-bold float-right"
+      id="quantity_error"
+      style="display: none"
+    ></code>
+  </div>
+</div>
+
+<div class="row col col-md-12">
+  <div class="col col-md-12 form-group">
+    <label class="fw-bold" for="descriptionn">Description :</label>
+    <input
+      type="text"
+      class="form-control"
+      id="descriptionn"
+      placeholder="Description"
+      onblur="notNull(this.value, 'description_error');"
+    />
+    <code
+      class="text-danger small font-weight-bold float-right"
+      id="description_error"
+      style="display: none"
+    >
+    </code>
+  </div>
+</div>
+
+<div class="row col col-md-12">
+  <div class="col col-md-12 form-group">
+    <label class="fw-bold" for="description">Category :</label>
+    <input
+      type="text"
+      class="form-control"
+      id="category"
+      placeholder="Category"
+      onblur="notNull(this.value, 'category_name_error');"
+      onkeyup="showSuggestions(this.value, 'category');"
+    />
+    <code
+      class="text-danger small font-weight-bold float-right"
+      id="category_name_error"
+      style="display: none"
+    >
+    </code>
+    <div
+      id="category_suggestions"
+      class="list-group position-fixed"
+      style="z-index: 1; width: 35.8%; overflow: auto; max-height: 200px"
+    ></div>
+  </div>
+</div>
+
+<div class="row col col-md-12">
+  <div class="col col-md-12 form-group">
+    <label class="fw-bold" for="expiry_date">Expiry Date :</label>
+    <input
+      id="expiry_date"
+      type="date"
+      class="form-control"
+      id="expiry_date"
+      placeholder="Expiry date"
+      name="expiry_date"
+    />
+    <code
+      class="text-danger small font-weight-bold float-right"
+      id="expiry_error"
+      style="display: none"
+    ></code>
+  </div>
+</div>
+
+<!-- <div class="row col col-md-12">
+  <div
+    class="col col-md-5 font-weight-bold"
+    style="color: green; cursor: pointer"
+    onclick="document.getElementById('add_new_supplier_model').style.display = 'block';"
+  >
+    <i class="fa fa-plus"></i>Add New Supplier
+  </div>
+</div> -->
+<hr />
+
+<div class="col col-md-12">
+  <hr
+    class="col-md-12 float-left"
+    style="padding: 0px; width: 95%; border-top: 2px solid #02b6ff"
+  />
+</div>
+
+<!-- new user button -->
+<div class="row col col-md-12">
+  &emsp;
+  <div class="form-group m-auto">
+    <button class="btn btn-primary form-control" onclick="addProduct();">
+      ADD
+    </button>
+  </div>
+</div>
+
+<div
+  id="product_acknowledgement"
+  class="col-md-12 h5 text-success font-weight-bold text-center"
+  style="font-family: sans-serif"
+></div>
