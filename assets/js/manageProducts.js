@@ -56,6 +56,20 @@ function cancel() {
   xhttp.send();
 }
 
+function searchUpdatedProducts(text) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if ((xhttp.readyState = 4 && xhttp.status == 200))
+      document.getElementById("products_div").innerHTML = xhttp.responseText;
+  };
+  xhttp.open(
+    "GET",
+    "scripts/manageProducts.php?action=searchUpdate&text=" + text,
+    true
+  );
+  xhttp.send();
+}
+
 function searchProducts(text) {
   var xhttp = new XMLHttpRequest();
   xhttp.onreadystatechange = function () {

@@ -14,7 +14,7 @@
 
 <body>
     <?php
-    include "./includes/navbar.html"
+    include "./includes/navbar.php"
     ?>
     <div class="container-fluid">
         <div class="container">
@@ -60,7 +60,6 @@
                 <!-- new user button -->
                 <div class="row col col-md-12">
                     <div class="col col-md-2 form-group">
-    
                     </div>
                     <div class="col col-md-1 form-group"></div>
                     <div class="col col-md-2 form-group">

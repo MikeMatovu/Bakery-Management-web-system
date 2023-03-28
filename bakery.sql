@@ -1,6 +1,14 @@
 CREATE DATABASE bakery_management;
 
-USE bakery_management;
+USE bakery_management;-- 
+
+CREATE TABLE users (
+  user_id INT NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  username VARCHAR(50) NOT NULL UNIQUE,
+  password VARCHAR(255) NOT NULL,
+  email VARCHAR(100) NOT NULL UNIQUE,
+  is_admin TINYINT(1) NOT NULL DEFAULT 0
+);
 
 CREATE TABLE customers (
 customer_id INT PRIMARY KEY auto_increment,
@@ -55,6 +63,26 @@ FOREIGN KEY (order_id) REFERENCES orders(order_id),
 FOREIGN KEY (product_id) REFERENCES products(product_id)
 );
 
+CREATE TABLE product_updates (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  product_id INT,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_by VARCHAR(255),
+  update_reason VARCHAR(255),
+  old_product_name VARCHAR(255),
+  new_product_name VARCHAR(255),
+  old_price DECIMAL(10,2),
+  new_price DECIMAL(10,2),
+  old_description TEXT,
+  new_description TEXT,
+  old_stock_quantity INT,
+  new_stock_quantity INT,
+  old_expiry_date DATE,
+  new_expiry_date DATE,
+  old_category_id INT,
+  new_category_id INT
+);
+
 DELIMITER #
 CREATE PROCEDURE add_product(
   IN name VARCHAR(50),
@@ -69,7 +97,20 @@ BEGIN
   VALUES (name, description, price, quantity, expiry_date, category_id);
 END #
 
+CREATE TRIGGER product_update_trigger
+AFTER UPDATE ON products
+FOR EACH ROW
+BEGIN
+  INSERT INTO product_updates (product_id, updated_by, old_product_name, new_product_name, old_price, new_price, old_description, new_description, old_stock_quantity, new_stock_quantity, old_expiry_date, new_expiry_date, old_category_id, new_category_id)
+  VALUES (NEW.product_id, CURRENT_USER(), OLD.product_name, NEW.product_name, OLD.price, NEW.price, OLD.description, NEW.description, OLD.stock_quantity, NEW.stock_quantity, OLD.expiry_date, NEW.expiry_date, OLD.category_id, NEW.category_id);
+END #
+
+
 DELIMITER ;
+
+
+
+
 
 
 

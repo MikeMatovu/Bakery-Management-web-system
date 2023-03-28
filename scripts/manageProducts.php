@@ -31,6 +31,9 @@
 
         if (isset($_GET["action"]) && $_GET["action"] == "search")
             searchProduct(strtoupper($_GET["text"]));
+
+        if (isset($_GET["action"]) && $_GET["action"] == "searchUpdate")
+            searchUpdatedProduct(strtoupper($_GET["text"]));
     }
 
     function showProducts($id)
@@ -46,6 +49,23 @@
                     showEditOptionsRow($seq_no, $row);
                 else
                     showProductRow($seq_no, $row);
+            }
+        }
+    }
+
+    function showEditedProducts($id)
+    {
+        include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_connection.php';
+        if ($conn) {
+            $seq_no = 0;
+            $query = "SELECT * FROM product_updates";
+            $result = mysqli_query($conn, $query);
+            while ($row = mysqli_fetch_array($result)) {
+                $seq_no++;
+                if ($row['product_id'] == $id)
+                    showEditOptionsRow($seq_no, $row);
+                else
+                    showEditedProductRow($seq_no, $row);
             }
         }
     }
@@ -72,6 +92,29 @@
       </tr>
   <?php
     }
+
+    function showEditedProductRow($seq_no, $row)
+    {
+    ?>
+      <tr>
+          <td><?php echo $seq_no; ?></td>
+          <td><?php echo $row['updated_by']; ?></td>
+          <td class="<?php echo ($row['old_product_name'] !== $row['new_product_name']) ? 'bg-danger text-white' : ''; ?>"><?php echo $row['old_product_name']; ?></td>
+          <td class="<?php echo ($row['old_product_name'] !== $row['new_product_name']) ? 'bg-success text-white' : ''; ?>"><?php echo $row['old_product_name']; ?><?php echo $row['new_product_name']; ?></td>
+          <td class="<?php echo ($row['old_price'] !== $row['new_price']) ? 'bg-danger text-white' : ''; ?>"><?php echo $row['old_price']; ?><?php echo $row['old_price']; ?></td>
+          <td class="<?php echo ($row['old_price'] !== $row['new_price']) ? 'bg-success text-white' : ''; ?>"><?php echo $row['new_price']; ?></td>
+          <td class="<?php echo ($row['old_description'] !== $row['new_description']) ? 'bg-danger text-white' : ''; ?>"><?php echo $row['old_description']; ?></td>
+          <td class="<?php echo ($row['old_description'] !== $row['new_description']) ? 'bg-success text-white' : ''; ?>"><?php echo $row['new_description']; ?></td>
+          <td class="<?php echo ($row['old_stock_quantity'] !== $row['new_stock_quantity']) ? 'bg-danger text-white' : ''; ?>"><?php echo $row['old_stock_quantity']; ?></td>
+          <td class="<?php echo ($row['old_stock_quantity'] !== $row['new_stock_quantity']) ? 'bg-success text-white' : ''; ?>"><?php echo $row['new_stock_quantity']; ?></td>
+          <td class="<?php echo ($row['old_expiry_date'] !== $row['new_expiry_date']) ? 'bg-danger text-white' : ''; ?>"><?php echo $row['old_expiry_date']; ?></td>
+          <td class="<?php echo ($row['old_expiry_date'] !== $row['new_expiry_date']) ? 'bg-success text-white' : ''; ?>"><?php echo $row['new_expiry_date']; ?></td>
+          <td class="<?php echo ($row['old_category_id'] !== $row['new_category_id']) ? 'bg-danger text-white' : ''; ?>"><?php echo $row['new_category_id']; ?></td>
+          <td class="<?php echo ($row['old_category_id'] !== $row['new_category_id']) ? 'bg-success text-white' : ''; ?>"><?php echo $row['old_category_id']; ?></td>
+      </tr>
+  <?php
+    }
+
 
     function showEditOptionsRow($seq_no, $row)
     {
@@ -110,11 +153,16 @@
 
     function updateProducts($id, $name, $description, $price, $quantity, $expiryDate, $categoryId)
     {
+        session_start();
+        $current_email = $_SESSION['email'];
         include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_connection.php';
         $query = "UPDATE products SET product_name = '$name', description = '$description', price = '$price', stock_quantity = '$quantity', expiry_date = '$expiryDate' , category_id = '$categoryId' WHERE product_id = $id";
         $result = mysqli_query($conn, $query);
-        if (!empty($result))
+        if (!empty($result)) {
             showProducts(0);
+            $update_query = "UPDATE product_updates SET updated_by = '$current_email' WHERE product_id = $id";
+            $result = mysqli_query($conn, $update_query);
+        }
     }
 
     function searchProduct($text)
@@ -127,6 +175,20 @@
             while ($row = mysqli_fetch_array($result)) {
                 $seq_no++;
                 showProductRow($seq_no, $row);
+            }
+        }
+    }
+
+    function searchUpdatedProduct($text)
+    {
+        include $_SERVER['DOCUMENT_ROOT'] . '/includes/db_connection.php';
+        if ($conn) {
+            $seq_no = 0;
+            $query = "SELECT * FROM product_updates WHERE old_product_name LIKE '%$text%'";
+            $result = mysqli_query($conn, $query);
+            while ($row = mysqli_fetch_array($result)) {
+                $seq_no++;
+                showEditedProductRow($seq_no, $row);
             }
         }
     }

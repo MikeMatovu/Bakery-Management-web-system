@@ -21,7 +21,7 @@ if ($conn) {
     // else
     //     echo "Failed to add $name!";
 
-
+//Stored procedure to add product
     $stmt = $conn->prepare("CALL add_product(?, ?, ?, ?, ?, ?)");
     $stmt->bind_param("sidsss", $name, $quantity, $price, $description, $expiryDate, $category_id);
     $stmt->execute();
