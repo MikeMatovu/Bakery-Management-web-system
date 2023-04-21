@@ -98,13 +98,13 @@
     ?>
       <tr>
           <td><?php echo $seq_no; ?></td>
-          <td><?php echo $row['updated_by']; ?></td>
+          <td class="<?php echo ($row['updated_by'] !== "root@localhost") ? 'bg-primary text-white' : ''; ?>"><?php echo $row['updated_by']; ?></td>
           <td class="<?php echo ($row['old_product_name'] !== $row['new_product_name']) ? 'bg-danger text-white' : ''; ?>"><?php echo $row['old_product_name']; ?></td>
-          <td class="<?php echo ($row['old_product_name'] !== $row['new_product_name']) ? 'bg-success text-white' : ''; ?>"><?php echo $row['old_product_name']; ?><?php echo $row['new_product_name']; ?></td>
-          <td class="<?php echo ($row['old_price'] !== $row['new_price']) ? 'bg-danger text-white' : ''; ?>"><?php echo $row['old_price']; ?><?php echo $row['old_price']; ?></td>
-          <td class="<?php echo ($row['old_price'] !== $row['new_price']) ? 'bg-success text-white' : ''; ?>"><?php echo $row['new_price']; ?></td>
+          <td class="<?php echo ($row['old_product_name'] !== $row['new_product_name']) ? 'bg-success text-white' : ''; ?>"><?php echo $row['new_product_name']; ?></td>
           <td class="<?php echo ($row['old_description'] !== $row['new_description']) ? 'bg-danger text-white' : ''; ?>"><?php echo $row['old_description']; ?></td>
           <td class="<?php echo ($row['old_description'] !== $row['new_description']) ? 'bg-success text-white' : ''; ?>"><?php echo $row['new_description']; ?></td>
+          <td class="<?php echo ($row['old_price'] !== $row['new_price']) ? 'bg-danger text-white' : ''; ?>"><?php echo $row['old_price']; ?></td>
+          <td class="<?php echo ($row['old_price'] !== $row['new_price']) ? 'bg-success text-white' : ''; ?>"><?php echo $row['new_price']; ?></td>
           <td class="<?php echo ($row['old_stock_quantity'] !== $row['new_stock_quantity']) ? 'bg-danger text-white' : ''; ?>"><?php echo $row['old_stock_quantity']; ?></td>
           <td class="<?php echo ($row['old_stock_quantity'] !== $row['new_stock_quantity']) ? 'bg-success text-white' : ''; ?>"><?php echo $row['new_stock_quantity']; ?></td>
           <td class="<?php echo ($row['old_expiry_date'] !== $row['new_expiry_date']) ? 'bg-danger text-white' : ''; ?>"><?php echo $row['old_expiry_date']; ?></td>

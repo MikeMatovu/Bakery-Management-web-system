@@ -44,7 +44,7 @@
 
                         $query = "SELECT * FROM $table";
                         if ($title == "Out of Stock")
-                            $query = "SELECT * FROM $table WHERE QUANTITY = 0";
+                            $query = "SELECT * FROM $table WHERE stock_quantity = 0";
 
                         $result = mysqli_query($conn, $query);
                         $count = mysqli_num_rows($result);
@@ -79,8 +79,8 @@
                     createSection1('manage_products.php', 'Total Products', 'products');
                     createSection1('manage_categories.php', 'Total Categories', 'categories');
                     createSection1('manage_orders.php', 'Total Orders', 'orders');
-                    //  createSection1('manage_medicine_stock.php?out_of_stock', 'Out of Stock', 'medicines_stock');
-                    // createSection1('manage_medicine_stock.php?expired', 'Expired', 'medicines_stock');
+                    createSection1('manage_products.php', 'Out of Stock', 'products');
+                    createSection1('manage_products.php', 'Expired', 'products');
                     createSection1('manage_invoice.php', 'Total Invoices', 'invoices');
                     ?>
 
@@ -112,10 +112,10 @@
                                     <?php
                                     //echo $date;
                                     $total = 0;
-                                    $query = "SELECT total_amount FROM invoices WHERE payment_date = '$date'";
-                                    $result = mysqli_query($conn, $query);
-                                    while ($row = mysqli_fetch_array($result))
-                                        $total = $total + $row['total_amount'];
+                                    // $query = "SELECT total_amount FROM invoices WHERE payment_date = '$date'";
+                                    // $result = mysqli_query($conn, $query);
+                                    // while ($row = mysqli_fetch_array($result))
+                                    //     $total = $total + $row['total_amount'];
                                 }
                                     ?>
                                     <th>Total Purchase</th>

@@ -52,3 +52,31 @@ function checkQuantity(quantity, error) {
   }
   return false;
 }
+
+function checkValue(value, error) {
+  var result = document.getElementById(error);
+  result.style.display = "block";
+  if (value < 0 || value == "") result.innerHTML = "Invalid!";
+  else {
+    result.style.display = "none";
+    return true;
+  }
+  return false;
+}
+
+function checkExpiry(date, error) {
+  var result = document.getElementById(error);
+  result.style.display = "block";
+  if (date.trim() == "" || date.trim().length != 5 || date[2] != "/")
+    result.innerHTML = "Please enter date in mm/yy format!";
+  else if (date.slice(0, 2) < 1 || date.slice(0, 2) > 12)
+    result.innerHTML = "Invalid month!";
+  else if (new Date("20" + date.slice(3, 5), date.slice(0, 2)) < new Date()) {
+    result.innerHTML = "Expired Medicine!";
+    return -1;
+  } else {
+    result.style.display = "none";
+    return true;
+  }
+  return false;
+}

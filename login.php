@@ -55,14 +55,14 @@
 
             <div class="card-footer">
                 <div class="text-center">
-                    <a class="text-light" onclick="displaySignUp();" style="cursor: pointer;">Forgot password?</a>
+                    <a class="text-light" onclick="displaySignUp();" style="cursor: pointer;">Don't have an account? Sign Up</a>
                 </div>
             </div> <!-- cord-footer class -->
         </div> <!-- card class -->
 
         <div id="sign-up-form" class="card m-auto p-2" style="display: none;">
             <div class="card-body">
-                <form name="sign-up-form" class="sign-form" action="login.php" method="post" onsubmit="return validateAndSetup();">
+                <form name="sign-up-form" class="sign-up-form" action="login.php" method="post" onsubmit="return validateAndSetup();">
                     <div class="logo">
                         <img src="./assets/images/prof.jpg" class="profile" />
                         <h1 class="logo-caption"><span class="tweak">S</span>ign up</h1>

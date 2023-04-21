@@ -106,6 +106,34 @@ BEGIN
 END #
 
 
+CREATE PROCEDURE create_invoice(
+    IN customer_name VARCHAR(255),
+    IN product_name VARCHAR(255),
+    IN quantity INT
+)
+BEGIN
+    DECLARE product_id INT;
+    DECLARE current_quantity INT;
+    
+    -- Find the product ID for the given product name
+    SELECT product_id INTO product_id FROM products WHERE product_name = product_name;
+    
+    -- Get the current quantity of the product
+    SELECT stock_quantity INTO current_quantity FROM products WHERE product_id = product_id;
+    
+    -- Check if there's enough quantity to sell
+    IF current_quantity < quantity THEN
+        SIGNAL SQLSTATE '45000'
+            SET MESSAGE_TEXT = 'Not enough quantity in stock.';
+    ELSE
+        -- Subtract the sold quantity from the product's stock
+        UPDATE products SET stock_quantity = current_quantity - quantity WHERE product_id = product_id;
+        
+        -- Create the new invoice
+        INSERT INTO invoices (customer_name, product_name, quantity) VALUES (customer_name, product_name, quantity);
+    END IF;
+END;
+
 DELIMITER ;
 
 

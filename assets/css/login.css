@@ -11,7 +11,7 @@
 }
 
 body {
-  background-image: url("../images/pills2.jpg");
+  background-image: url("../images/bg.jpg");
   background-size: cover;
   background-repeat: no-repeat;
   height: 100%;
@@ -72,7 +72,6 @@ body {
 .login-form input,
 .login-form textarea .sign-ip-form input,
 .sign-up-form textarea {
-  background: #444444;
   border: 0px;
   color: white;
   font-family: "Nunito", sans-serif;

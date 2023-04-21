@@ -14,8 +14,16 @@
     <div class="card">
       <div class="card-body">
         <div class="logo">
-          <img src="./assets/images/prof.jpg" class="profile" />
-          <h1 class="logo-caption"><span class="tweak">A</span>dmin</h1>
+          <?php
+          if (isset($_SESSION['user_id']) && $_SESSION['is_admin'] == 1) {
+            echo ' <img src="./assets/images/prof.jpg" class="profile" />
+          <h1 class="logo-caption"><span class="tweak">A</span>dmin</h1>';
+          } else {
+            echo ' <img src="./assets/images/prof.jpg" class="profile" />
+          <h1 class="logo-caption"><span class="tweak">U</span>ser</h1>';
+          }
+          ?>
+
         </div>
         <!-- logo class -->
 

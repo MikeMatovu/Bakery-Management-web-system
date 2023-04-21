@@ -20,11 +20,31 @@ function clearSuggestions(id) {
 
 function suggestionClick(value, id) {
   document.getElementById(id).value = value;
-  //   if (id == "category") {
-  //     fillCustomerDetails(value);
-  //   }
+
+  if (id == "customer") {
+    fillCustomerDetails(value);
+  }
   clearSuggestions(id);
   notNull(value, id + "_name_error");
+}
+
+function fillCustomerDetails(name) {
+  getCustomerDetail("customers_address", name);
+  getCustomerDetail("customers_contact_number", name);
+}
+
+function getCustomerDetail(id, name) {
+  var xhttp = new XMLHttpRequest();
+  xhttp.onreadystatechange = function () {
+    if ((xhttp.readyState = 4 && xhttp.status == 200))
+      document.getElementById(id).value = xhttp.responseText;
+  };
+  xhttp.open(
+    "GET",
+    "assets/php/suggestions.php?action=" + id + "&name=" + name,
+    true
+  );
+  xhttp.send();
 }
 
 document.addEventListener("click", (evt) => {
@@ -33,7 +53,6 @@ document.addEventListener("click", (evt) => {
   const dn3 = document.getElementById("customer_suggestions");
   const dn4 = document.getElementById("customers_name");
   let te = evt.target;
-  console.log(te);
   do {
     if (te == dn1 || te == dn2 || te == dn3 || te == dn4) return;
     te = te.parentNode;
